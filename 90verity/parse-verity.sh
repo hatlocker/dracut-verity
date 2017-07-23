@@ -52,8 +52,20 @@ do
         continue
     fi
 
-    info "Parsed $p, name: $name, datauuid: $datauuid, hashuuid: $hashuuid, roothash: $roothash"
-
     wait_for_dev "/dev/disk/by-uuid/$datauuid"
     wait_for_dev "/dev/disk/by-uuid/$hashuuid"
+
+    info "Mounting verity volume $name"
+
+    veritysetup create "$name" \
+        "/dev/disk/by-uuid/$datauuid" \
+        "/dev/disk/by-uuid/$hashuuid" \
+        "$roothash"
+
+    if [[ $? == 0 ]];
+    then
+        info "Verity volume $name mounted"
+    else
+        info "Mounting verity volume $name failed"
+    fi
 done
