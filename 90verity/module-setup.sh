@@ -6,7 +6,7 @@ check() {
 }
 
 depends() {
-    echo dm rootfs-block crypt
+    echo dm rootfs-block
     return 0
 }
 
@@ -16,6 +16,6 @@ installkernel() {
 
 install() {
     inst_hook cmdline 30 "$moddir/parse-verity.sh"
-    inst veritysetup
+    inst_multiple veritysetup rmdir readlink umount
     dracut_need_initqueue
 }
