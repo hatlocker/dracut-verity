@@ -30,7 +30,7 @@ do
             roothash="${arg[1]}"
         else
             info "Invalid line, $p, unknown arg ${arg[0]}"
-            exit 1
+	    continue
         fi
     done
 
