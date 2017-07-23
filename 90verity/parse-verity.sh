@@ -7,6 +7,7 @@ do
     name=""
     datauuid=""
     hashuuid=""
+    verityuuid=""
     roothash=""
     IFS=',' read -r -a values <<< "$p"
     for element in "${values[@]}"
@@ -25,6 +26,9 @@ do
         elif [[ ${arg[0]} == "hashuuid" ]]
         then
             hashuuid="${arg[1]}"
+        elif [[ ${arg[0]} == "verityuuid" ]]
+        then
+            verityuuid="${arg[1]}"
         elif [[ ${arg[0]} == "roothash" ]]
         then
             roothash="${arg[1]}"
@@ -46,6 +50,10 @@ do
     then
         warn "Invalid line, $p, missing hash uuid"
         continue
+    elif [[ "x$verityuuid" == "x" ]]
+    then
+        warn "Invalid line, $p, missing verity uuid"
+        continue
     elif [[ "x$roothash" == "x" ]]
     then
         warn "Invalid line, $p, missing roothash"
@@ -58,6 +66,7 @@ do
     info "Mounting verity volume $name"
 
     veritysetup create "$name" \
+        "--uuid=$verityuuid" \
         "/dev/disk/by-uuid/$datauuid" \
         "/dev/disk/by-uuid/$hashuuid" \
         "$roothash"
