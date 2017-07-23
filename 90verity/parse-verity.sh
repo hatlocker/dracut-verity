@@ -4,6 +4,7 @@ type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
 
 for p in $(getargs rd.verity=);
 do
+    name=""
     datauuid=""
     hashuuid=""
     roothash=""
@@ -15,7 +16,10 @@ do
             element=${element:10}
         fi
         IFS="=" read -r -a arg <<< "$element"
-        if [[ ${arg[0]} == "datauuid" ]]
+        if [[ ${arg[0]} == "name" ]]
+        then
+            name="${arg[1]}"
+        elif [[ ${arg[0]} == "datauuid" ]]
         then
             datauuid="${arg[1]}"
         elif [[ ${arg[0]} == "hashuuid" ]]
@@ -30,7 +34,11 @@ do
         fi
     done
 
-    if [[ "x$datauuid" == "x" ]]
+    if [[ "x$name" == "x" ]]
+    then
+        warn "Invalid line, $p, missing name"
+        continue
+    elif [[ "x$datauuid" == "x" ]]
     then
         warn "Invalid line, $p, missing data uuid"
         continue
@@ -44,7 +52,7 @@ do
         continue
     fi
 
-    info "Parsed $p, datauuid: $datauuid, hashuuid: $hashuuid, roothash: $roothash"
+    info "Parsed $p, name: $name, datauuid: $datauuid, hashuuid: $hashuuid, roothash: $roothash"
 
     wait_for_dev "/dev/disk/by-uuid/$datauuid"
     wait_for_dev "/dev/disk/by-uuid/$hashuuid"
