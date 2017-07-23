@@ -16,6 +16,6 @@ installkernel() {
 
 install() {
     inst_hook cmdline 30 "$moddir/parse-verity.sh"
-    inst_simple veritysetup /bin/cryptsetup
+    inst veritysetup
     dracut_need_initqueue
 }
