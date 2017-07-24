@@ -9,6 +9,7 @@ Source0:        dracut-verity-%{version}.tar.gz
 
 BuildRequires:  dracut
 Requires:       dracut
+Requires:       veritysetup
 
 %description
 Dracut module to mount DM-Verity disks
