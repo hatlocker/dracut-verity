@@ -1,6 +1,6 @@
 Name:           dracut-verity
 Version:        1
-Release:        1%{?dist}
+Release:        2
 Summary:        Dracut module to mount DM-Verity disks
 
 License:        MIT
@@ -27,5 +27,8 @@ cp -ar 90verity %{buildroot}%{_prefix}/lib/dracut/modules.d/
 %{_prefix}/lib/dracut/modules.d/90verity
 
 %changelog
+* Mon Jul 24 2017 Patrick Uiterwijk <patrick@puiterwijk.org> 1-2
+- Add veritysetup Requires (patrick@puiterwijk.org)
+
 * Mon Jul 24 2017 Patrick Uiterwijk <patrick@puiterwijk.org> 1-1
 - new package built with tito
