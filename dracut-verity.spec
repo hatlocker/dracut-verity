@@ -1,6 +1,6 @@
 Name:           dracut-verity
-Version:        1
-Release:        2
+Version:        2
+Release:        1
 Summary:        Dracut module to mount DM-Verity disks
 
 License:        MIT
@@ -27,6 +27,9 @@ cp -ar 90verity %{buildroot}%{_prefix}/lib/dracut/modules.d/
 %{_prefix}/lib/dracut/modules.d/90verity
 
 %changelog
+* Tue Jul 25 2017 Patrick Uiterwijk <patrick@puiterwijk.org> 2-1
+- Allow providing the hash offset (patrick@puiterwijk.org)
+
 * Mon Jul 24 2017 Patrick Uiterwijk <patrick@puiterwijk.org> 1-2
 - Add veritysetup Requires (patrick@puiterwijk.org)
 
