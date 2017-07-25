@@ -9,6 +9,7 @@ do
     hashuuid=""
     verityuuid=""
     roothash=""
+    offset=0
     IFS=',' read -r -a values <<< "$p"
     for element in "${values[@]}"
     do
@@ -32,6 +33,9 @@ do
         elif [[ ${arg[0]} == "roothash" ]]
         then
             roothash="${arg[1]}"
+        elif [[ ${arg[0]} == "offset" ]]
+        then
+            offset=${arg[1]}
         else
             info "Invalid line, $p, unknown arg ${arg[0]}"
 	    continue
@@ -69,6 +73,7 @@ do
         "--uuid=$verityuuid" \
         "/dev/disk/by-uuid/$datauuid" \
         "/dev/disk/by-uuid/$hashuuid" \
+	"--hash-offset=$offset" \
         "$roothash"
 
     if [[ $? == 0 ]];
