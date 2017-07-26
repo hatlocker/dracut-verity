@@ -1,5 +1,5 @@
 Name:           dracut-verity
-Version:        2
+Version:        3
 Release:        1
 Summary:        Dracut module to mount DM-Verity disks
 
@@ -34,6 +34,10 @@ cp -ar 10verity %{buildroot}%{_prefix}/lib/dracut/modules.d/
 %{_prefix}/lib/dracut/modules.d/10verity
 
 %changelog
+* Wed Jul 26 2017 Patrick Uiterwijk <patrick@puiterwijk.org> 3-1
+- Remove my custom work to stand on the shoulder of coreos
+  (patrick@puiterwijk.org)
+
 * Tue Jul 25 2017 Patrick Uiterwijk <patrick@puiterwijk.org> 2-1
 - Allow providing the hash offset (patrick@puiterwijk.org)
 
