@@ -8,6 +8,7 @@ URL:            https://github.com/hatlocker/dracut-verity
 Source0:        dracut-verity-%{version}.tar.gz
 
 BuildRequires:  dracut
+BuildRequires:	e2fsprogs-devel
 Requires:       dracut
 Requires:       veritysetup
 
@@ -17,14 +18,20 @@ Dracut module to mount DM-Verity disks
 %prep
 %autosetup
 
+%build
+gcc e2size.c -l ext2fs -o e2size
+
 %install
+mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_prefix}/lib/dracut/modules.d/
-cp -ar 90verity %{buildroot}%{_prefix}/lib/dracut/modules.d/
+cp -a e2size %{buildroot}%{_bindir}
+cp -ar 10verity %{buildroot}%{_prefix}/lib/dracut/modules.d/
 
 %files
 %license LICENSE
 %doc README.md
-%{_prefix}/lib/dracut/modules.d/90verity
+%{_bindir}/e2size
+%{_prefix}/lib/dracut/modules.d/10verity
 
 %changelog
 * Tue Jul 25 2017 Patrick Uiterwijk <patrick@puiterwijk.org> 2-1
